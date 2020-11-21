@@ -35,6 +35,24 @@ public class TaskTrackerController {
 		return "index";
 	}
 	
+	
+	@GetMapping("/homepage")
+	public String register(Model model)
+	{
+		UserInformation user =(UserInformation)session.getAttribute("user");
+		model.addAttribute("user",user);
+		return "homepage";
+	}
+	
+	@GetMapping("/logout")
+	public String register()
+	{
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+	
+	
 	@PostMapping("/register")
 	public String register(UserInformation user,Model model)
 	{
@@ -122,6 +140,7 @@ public class TaskTrackerController {
 	@GetMapping("/completed")
 	public String completed(Long id)
 	{
+		System.out.println("I AM INSIDE");
 		Task task = trep.findById(id).get();
 		task.setStatus("completed");
 		trep.save(task);

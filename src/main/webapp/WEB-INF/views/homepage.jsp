@@ -7,7 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Welcome ${user.getUsername()}</h1>
+<div>
+<a href="/logout">
+    <input type="button" value="LogOut" />
+</a>
+</div> <br /><br />	
+<h1>Welcome ${user.getUsername()}</h1> 
 <a href="/tasks">Your Tasks</a>
 <h1>Create a new Task</h1>
 <form method="post" action="/createtask">
@@ -24,4 +29,6 @@
 <input type ="submit" value="create"/>
 </form>
 </body>
+<br /><br />
+
 </html>
