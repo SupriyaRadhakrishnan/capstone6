@@ -1,7 +1,6 @@
 package co.grandcircus.TaskTracker;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -81,7 +80,7 @@ public class TaskTrackerController {
 	{
 		UserInformation users =urep.findByEmail(email);
 		
-		if(session.getAttribute("user") != null)
+		if(users != null)
 		{
 			if(users.getEmail().equals(email) && users.getPassword().equals(password))
 			{
@@ -103,23 +102,9 @@ public class TaskTrackerController {
 	}
 	
 	@PostMapping("/createtask")
-	public String createtask(Task task,String ddate,Model model)
+	public String createtask(Task task,Model model)
 	{
 		UserInformation user =(UserInformation)session.getAttribute("user");
-		System.out.println("inside tasks " +user);
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println("Before converion"+ ddate);
-		Date date = new Date();
-			try {
-				date = sdf1.parse(ddate);
-				System.out.println("pasring converion"+ date);
-			} catch (java.text.ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		java.sql.Date sqlDueDate = new java.sql.Date(date.getTime());
-		System.out.println(sqlDueDate);
-		task.setDuedate(sqlDueDate);
 		task.setUserinformation(user);
 		trep.save(task);
 		model.addAttribute("user",(UserInformation)session.getAttribute("user"));

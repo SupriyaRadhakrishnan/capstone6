@@ -18,8 +18,8 @@
 <form method="post" action="/createtask">
 <label for="description">Task Description</label>
 <input type ="text" name="description"/><br /><br />
-<label for="ddate">Due Date</label>
-<input type ="date" name="ddate"/><br /><br />
+<label for="duedate">Due Date</label>
+<input type ="date" name="duedate"/><br /><br />
 <label for="status">status</label>
  <select id="status" name="status">
     <option value="assigned">Assigned</option>
