@@ -109,7 +109,7 @@ public class TaskTrackerController {
 		task.setUserinformation(user);
 		trep.save(task);
 		model.addAttribute("user",(UserInformation)session.getAttribute("user"));
-		return "homepage";
+		return "redirect:/tasks";
 	}
 	
 	@GetMapping("/tasks")
