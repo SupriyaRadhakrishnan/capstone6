@@ -56,30 +56,44 @@ public class TaskTrackerController {
 	@PostMapping("/register")
 	public String register(UserInformation user,Model model)
 	{
+		UserInformation u = null;
+				
+		u=urep.findByEmail(user.getEmail());
+		System.out.println("I am in U " + u);
+		if(u!=null)
+		{
+			message ="Email id already exists";
+			return "redirect:/";
+		}
+		else
+		{
+
 		urep.save(user);
 		session.setAttribute("user", user);
 		model.addAttribute("user",user);
 		return "homepage";
+		}
+		
 	}
 	
 	@PostMapping("/login")
 	public String login(String email,String password,Model model)
 	{
-		List<UserInformation> users = urep.findAll();
-		
-		for(UserInformation user :users)
-		{
-			if(user.getEmail().equals(email) && user.getPassword().equals(password))
-			{
-				session.setAttribute("user", user);
-				break;
-			}
-		}
+		UserInformation users =urep.findByEmail(email);
 		
 		if(session.getAttribute("user") != null)
 		{
+			if(users.getEmail().equals(email) && users.getPassword().equals(password))
+			{
+				session.setAttribute("user", users);
 			model.addAttribute("user",(UserInformation)session.getAttribute("user"));
 			return "homepage";
+			}
+			else
+			{
+			message = "Invalid Login details";
+				return "redirect:/";
+			}
 		}
 		else
 		{
