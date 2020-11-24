@@ -133,17 +133,39 @@ public class TaskTrackerController {
 	@GetMapping("/delete")
 	public String delete(Long id)
 	{
-		trep.deleteById(id);
+		UserInformation user =(UserInformation)session.getAttribute("user");
+        user = urep.findByEmail(user.getEmail());
+		
+        for(Task task : user.getTasks())
+        {
+        	if(task.getId()== id)
+        	{
+        		trep.deleteById(id);
+        	}
+        }
+        
+		
+		//trep.deleteById(id);
 		return "redirect:/tasks";
 	}
 	
 	@GetMapping("/completed")
 	public String completed(Long id)
 	{
-		System.out.println("I AM INSIDE");
-		Task task = trep.findById(id).get();
-		task.setStatus("completed");
-		trep.save(task);
+		UserInformation user =(UserInformation)session.getAttribute("user");
+        user = urep.findByEmail(user.getEmail());
+		
+        for(Task task : user.getTasks())
+        {
+        	if(task.getId()== id)
+        	{
+        		Task t = trep.findById(id).get();
+        		t.setStatus("completed");
+        		trep.save(t);
+        	}
+        }
+        
+		
 		return "redirect:/tasks";
 	}
 	
